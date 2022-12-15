@@ -1,0 +1,1 @@
+This project is about building a simplified version of a Linux shell. It will be developed using C. It is part of the ALX curriculum in association with Holberton. It will be done by 2 people collaborating equally.
