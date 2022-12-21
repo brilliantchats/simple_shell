@@ -52,7 +52,7 @@ int main(void)
 
 	while (1)
 	{
-		write(1,"$$",2);
+		write(1, "$$", 2);
 		line = getline(&lineptr, &n, stdin);
 		if (line == -1)
 			exit(-1);
