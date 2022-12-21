@@ -1,72 +1,53 @@
 #include "main.h"
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <unistd.h>
-#include <sys/types.h>
-#include <sys/wait.h>
-/**
- * fork_shell - Calls fork to run the shell
- * @str: array of strings with commands and arguments
- *
- * Return: nothing
- */
-void fork_shell(char *str[])
+
+
+
+
+int main()
 {
 	pid_t child;
-	int x, wstatus;
-
-	if (str[0])
-	{
-		child = fork();
-		if (child == -1)
-		{
-			perror(str[0]);
-			exit(-1);
-		}
-		if (child == 0)
-		{
-			x = execve(str[0], str, environ);
-			if (x == -1)
-			{
-				perror(str[0]);
-				exit(-1);
-			}
-		}
-		else
-			wait(&wstatus);
-	}
-}
-/**
- * main - Entry Point for the shell program
- *
- * Return: 0 on Success, anything else is failure
- */
-int main(void)
-{
-	char *string[128];
-	char *token, *lineptr = NULL;
-	int i = 1;
-	ssize_t line;
-	size_t n = 0;
+	char **argv;
+	size_t n,i;
+	char *line;
+	int status;
+	ssize_t r;
+	line = NULL;
 
 	while (1)
 	{
-		write(1, "$$", 2);
-		line = getline(&lineptr, &n, stdin);
-		if (line == -1)
-			exit(-1);
-		token = strtok(lineptr, " \n");
-		string[0] = token;
-		while (token != NULL)
+		write(1,"<3 ",3);
+		n = 0;
+		r = getline(&line, &n, stdin);
+		if (r == -1)
 		{
-			token = strtok(NULL, " \n");
-			string[i] = token;
-			i++;
+			perror("read not successfull");
+			return (1);
 		}
-		fork_shell(string);
-		i = 1;
+		argv = adder(line, " ");
+		
+		child = fork();
+
+		if (child == -1)
+		{
+			perror("problem while forking");
+			return (1);
+		}
+		
+		if (child == 0)
+		{
+			if (execve(argv[0], argv, NULL) == -1)
+				perror("Error exec gone wrong:");
+
+		}
+		else
+		{
+			wait(&status);
+		}
+
+		for (i = 0; argv[i]; i++)
+			free(argv[i]);
+		free(argv);
+		free(line);
+		return (0);
 	}
-	free(lineptr);
-	return (0);
 }

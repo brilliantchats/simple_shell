@@ -1,7 +1,16 @@
-#ifndef MAIN_H
-#define MAIN_H
-extern char **environ;
-int _printf(char *str);
-void fork_shell(char *str[]);
-int main(void);
-#endif /* MAIN_H */
+#ifndef _MAIN_H
+#define _MAIN_H
+
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <sys/wait.h>
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+#include <unistd.h>
+
+
+char **adder(char *line, char *delim);
+int _strlen(char *s);
+char *_strcpy(char *dest, char *src);
+#endif
