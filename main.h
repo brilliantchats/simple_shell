@@ -1,6 +1,7 @@
 #ifndef _MAIN_H
 #define _MAIN_H
-
+#include <string.h>
+#include <stdio.h>
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <sys/wait.h>

@@ -1,6 +1,14 @@
 #include "main.h"
 
 
+/**
+ * adder - add member  of string.
+ * @line: The string.
+ * @delim: The delimiter character to tokenize the string by.
+ *
+ * Return: A pointer to an array containing the tokenized words.
+ */
+
 char **adder(char *line, char *delim)
 {
 	char *token;
@@ -10,16 +18,17 @@ char **adder(char *line, char *delim)
 
 	for (index = 0; line[index]; index++)
 	{
-		if (line[index] != *delim && (line[index + 1] == *delim || line[index + 1] == '\0'))
+		if (line[index] != *delim)
+		{
+			if  (line[index + 1] == *delim || line[index + 1] == '\0')
 				words++;
+		}
 	}
 	line[index - 1] = '\0';
 	ptr = malloc(sizeof(char *) * (words + 1));
 	if (!ptr)
-	{
 		return (NULL);
-	}
-	token = strtok(line, delim);;
+	token = strtok(line, delim);
 	for (index = 0; token != NULL; index++)
 	{
 		ptr[index] = malloc(_strlen(token) + 1);
