@@ -3,13 +3,16 @@
 /**
  * main - Entry point
  *
+ * @ac: argument count
+ * @av: argument vector
+ *
  * Return: 0 on success.
  */
 
-int main(void)
+int main(int argc, char ** argv)
 {
 	pid_t child;
-	char **argv;
+	char **argv1;
 	size_t n, i;
 	char *line;
 	int status;
@@ -19,14 +22,14 @@ int main(void)
 	while (1)
 	{
 		write(1, "<3 ", 3);
-		n = 0;
+		n = argc - 1;
 		r = getline(&line, &n, stdin);
 		if (r == -1)
 		{
 			perror("read not successfull");
 			return (1);
 		}
-		argv = adder(line, " ");
+		argv1 = adder(line, " ");
 		child = fork();
 		if (child == -1)
 		{
@@ -35,16 +38,16 @@ int main(void)
 		}
 		if (child == 0)
 		{
-			if (execve(argv[0], argv, NULL) == -1)
-				perror("Error exec gone wrong:");
+			if (execve(argv1[0], argv1, NULL) == -1)
+				perror(argv[0]);
 		}
 		else
 		{
 			wait(&status);
 		}
-		for (i = 0; argv[i]; i++)
-			free(argv[i]);
-		free(argv);
+		for (i = 0; argv1[i]; i++)
+			free(argv1[i]);
+		free(argv1);
 		free(line);
 	}
 	return (0);
