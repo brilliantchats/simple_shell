@@ -26,15 +26,13 @@ int main(int argc, char ** argv)
 		r = getline(&line, &n, stdin);
 		if (r == -1)
 		{
-			perror("read not successfull");
-			return (1);
+			perror(argv[1]);
 		}
 		argv1 = adder(line, " ");
 		child = fork();
 		if (child == -1)
 		{
-			perror("problem while forking");
-			return (1);
+			perror(argv[1]);
 		}
 		if (child == 0)
 		{
