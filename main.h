@@ -8,6 +8,8 @@
 #include <stdlib.h>
 #include <unistd.h>
 
+extern char **environ;
+
 
 char **adder(char *line, char *delim);
 int _strlen(char *s);

@@ -38,7 +38,7 @@ int main(int argc, char ** argv)
 		}
 		if (child == 0)
 		{
-			if (execve(argv1[0], argv1, NULL) == -1)
+			if (execve(argv1[0], argv1, environ) == -1)
 				perror(argv[0]);
 		}
 		else
