@@ -35,15 +35,10 @@ void fork_shell(char *str[])
 
 	if (str[0])
 	{
-		if (str[0][0] == '^' && (str[0][1] == 'D' || str[0][1] == 'C')
-				&& str[0][2] == '\0')
-		{
-			exit(-1);
-		}
 		child = fork();
 		if (child == -1)
 		{
-			perror("./shell");
+			perror(str[0]);
 			exit(-1);
 		}
 		if (child == 0)
@@ -51,7 +46,7 @@ void fork_shell(char *str[])
 			x = execve(str[0], str, environ);
 			if (x == -1)
 			{
-				perror("./shell");
+				perror(str[0]);
 				exit(-1);
 			}
 		}
