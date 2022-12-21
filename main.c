@@ -6,23 +6,6 @@
 #include <sys/types.h>
 #include <sys/wait.h>
 /**
- * _printf - Prints a string to standard output
- * @str: the string to be printed
- *
- * Return: the number of characters printed
- */
-int _printf(char *str)
-{
-	int i = 0, len = 0;
-
-	while (str[i] != '\0')
-	{
-		len++;
-		i++;
-	}
-	return (write(1, str, len));
-}
-/**
  * fork_shell - Calls fork to run the shell
  * @str: array of strings with commands and arguments
  *
@@ -69,7 +52,7 @@ int main(void)
 
 	while (1)
 	{
-		_printf("($) ");
+		write(1,"$$",2);
 		line = getline(&lineptr, &n, stdin);
 		if (line == -1)
 			exit(-1);
